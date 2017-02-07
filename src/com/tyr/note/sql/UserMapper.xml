@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.tyr.note.dao.UserDao">
+	<select id="findByName" parameterType="string" 
+		resultType="com.tyr.note.entity.User">
+		select * from cn_user 
+			where cn_user_name = #{name}
+	</select>
+	
+	<insert id="save" parameterType="com.tyr.note.entity.User">
+			INSERT into cn_user (cn_user_id,cn_user_name,cn_user_pwd,cn_user_token,cn_user_desc) 
+			VALUES (#{cn_user_id,jdbcType=VARCHAR},#{cn_user_name,jdbcType=VARCHAR},#{cn_user_pwd,jdbcType=VARCHAR},#{cn_user_token,jdbcType=VARCHAR},#{cn_user_desc,jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

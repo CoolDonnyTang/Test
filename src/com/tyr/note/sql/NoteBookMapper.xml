@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.tyr.note.dao.NoteBookDao">
+	<select id="findByUserId" parameterType="string" 
+		resultType="com.tyr.note.entity.NoteBook">
+		select * from cn_notebook 
+			where cn_user_id = #{id,jdbcType=VARCHAR}
+			order by cn_notebook_createtime desc
+	</select>
+	<insert id="save"
+		parameterType="com.tyr.note.entity.NoteBook">
+		insert into cn_notebook 
+			(cn_notebook_id,cn_user_id,cn_notebook_type_id,
+			cn_notebook_name,cn_notebook_desc) 
+		values (#{cn_notebook_id,jdbcType=VARCHAR},#{cn_user_id,jdbcType=VARCHAR},
+			#{cn_notebook_type_id,jdbcType=VARCHAR},
+			#{cn_notebook_name,jdbcType=VARCHAR},#{cn_notebook_desc,jdbcType=VARCHAR})
+	</insert>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.tyr.note.dao.NoteDao">
+	<select id="findByBookId" parameterType="string" 
+		resultType="map">
+		<!-- 注意jdbcType=VARCHAR的值是大写 -->
+		select cn_note_id,cn_note_title from cn_note
+			where cn_notebook_id = #{bookid,jdbcType=VARCHAR}
+				and cn_note_status_id = 1
+			order by cn_note_create_time desc
+	</select>
+	<insert id="saveNote" 
+		parameterType="com.tyr.note.entity.Note">
+		insert into cn_note 
+			(cn_note_id,cn_notebook_id,cn_user_id,
+			cn_note_status_id,cn_note_type_id,cn_note_title,
+			cn_note_body,cn_note_last_modify_time)
+		values (#{cn_note_id,jdbcType=VARCHAR},#{cn_notebook_id,jdbcType=VARCHAR},#{cn_user_id,jdbcType=VARCHAR},
+			#{cn_note_status_id,jdbcType=VARCHAR},#{cn_note_type_id,jdbcType=VARCHAR},#{cn_note_title,jdbcType=VARCHAR},
+			#{cn_note_body,jdbcType=CLOB},#{cn_note_last_modify_time,jdbcType=TIMESTAMP})
+	</insert>
+	<select id="findByNoteId" parameterType="string" 
+		resultType="com.tyr.note.entity.Note">
+		select cn_note_body,cn_note_title from cn_note
+			where cn_note_id=#{noteId,jdbcType=VARCHAR}
+	</select>
+	<update id="updateByNoteId" 
+		parameterType="com.tyr.note.entity.Note">
+		update CN_NOTE set cn_note_title=#{cn_note_title,jdbcType=VARCHAR},
+			cn_note_body=#{cn_note_body,jdbcType=CLOB},
+			cn_note_last_modify_time=#{cn_note_last_modify_time,jdbcType=TIMESTAMP}
+		where cn_note_id=#{cn_note_id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateToDelet" parameterType="string">
+		update CN_NOTE set cn_note_status_id = 2 
+		where cn_note_id=#{noteId,jdbcType=VARCHAR}
+	</update>
+	<update id="moveByNoteId" parameterType="map">
+		update CN_NOTE set cn_notebook_id = #{bookId,jdbcType=VARCHAR}
+		where cn_note_id=#{noteId,jdbcType=VARCHAR}
+	</update>
+</mapper>

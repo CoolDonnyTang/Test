@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.tyr.note.dao.ShareNoteDao">
+	<insert id="share"
+		parameterType="com.tyr.note.entity.ShareNote">
+		insert into cn_share 
+			(cn_share_id, cn_note_id,
+			cn_share_title, cn_share_body) 
+		values (#{cn_share_id,jdbcType=VARCHAR},#{cn_note_id,jdbcType=VARCHAR},
+			#{cn_share_title,jdbcType=VARCHAR},#{cn_share_body,jdbcType=VARCHAR})
+	</insert>
+	<select id="findByNoteId" resultType="string"
+		parameterType="string">
+		select cn_share_title from cn_share 
+		where cn_note_id = #{notId,jdbcType=VARCHAR}
+	</select>
+	<update id="updateShare" parameterType="com.tyr.note.entity.ShareNote">
+		update cn_share set cn_share_title=#{cn_share_title,jdbcType=VARCHAR},
+			cn_share_body=#{cn_share_body,jdbcType=CLOB}
+		where cn_note_id = #{cn_note_id,jdbcType=VARCHAR}
+	</update>
+</mapper>
