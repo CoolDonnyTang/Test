@@ -22,6 +22,7 @@ pipeline {
        			  echo "BUILD_ID is ${env.BUILD_ID}"
        			  echo "BUILD_NAME is ${env.BUILD_NAME}"
        			  echo "JENKINS_URL is ${env.JENKINS_URL}"
+       			  echo "JOB_NAME is ${env.JOB_NAME}"
        		}
        	}
     }
