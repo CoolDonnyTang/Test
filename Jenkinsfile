@@ -17,11 +17,7 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-<<<<<<< HEAD
         stage('After Deploy') {
-=======
-        stage('Deploy') {
->>>>>>> refs/remotes/origin/master
             steps {
        			  echo "BUILD_ID is ${env.BUILD_ID}"
        			  echo "BUILD_NAME is ${env.BUILD_NAME}"
