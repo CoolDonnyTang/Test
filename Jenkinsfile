@@ -8,7 +8,7 @@ pipeline {
             echo 'Building..'
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             sleep 10
           }
@@ -30,8 +30,17 @@ pipeline {
       }
     }
     stage('Deploy') {
-      steps {
-        echo 'Deploying....'
+      parallel {
+        stage('Deploy') {
+          steps {
+            echo 'Deploying....'
+          }
+        }
+        stage('sonar') {
+          steps {
+            waitForQualityGate()
+          }
+        }
       }
     }
     stage('After Deploy') {
